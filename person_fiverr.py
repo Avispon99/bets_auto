@@ -3,7 +3,8 @@ class Person:
                         fecha_mes, fecha_ano, calle, num_calle, cod_postal, municipio,
                         departamento, telefono, user, email, password,
                         nacionalidad, fecha_exp_dia, fecha_exp_mes, fecha_exp_ano,
-                        lugar_exp_dept, lugar_exp_mun, limite_diario, limite_semanal, limite_mensual, segundo_nombre, pep):
+                        lugar_exp_dept, lugar_exp_mun, limite_diario, limite_semanal, limite_mensual, segundo_nombre,
+                        pep, tipo_documento, ciudad_nacimiento):
         #27 campos
         self.genero = genero #0
         self.nombre = nombre #1
@@ -32,5 +33,7 @@ class Person:
         self.limite_diario = limite_diario #24
         self.limite_semanal = limite_semanal
         self.limite_mensual = limite_mensual #26
-        self.segundo_nombre = segundo_nombre
-        self.pep = pep
+        self.segundo_nombre = segundo_nombre #27
+        self.pep = pep #28
+        self.tipo_documento=tipo_documento #29
+        self.ciudad_nacimiento = ciudad_nacimiento

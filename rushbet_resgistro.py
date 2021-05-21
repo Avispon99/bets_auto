@@ -1,11 +1,11 @@
 from selenium import webdriver
 import time
-from helpers import wait_el, find_el, place_sel, campo_sel, getDriver, wait_landing_xpath
+from helpers import wait_el, find_el, place_sel, campo_sel, getDriver, wait_landing_xpath, place_sel2
 from person_fiverr import Person
 import random
 
 # Indicar nombre de la casa de apuestas
-HOUSE_NAME = 'Wplay'
+HOUSE_NAME = 'Rushbet'
 
 
 
@@ -22,6 +22,7 @@ def register(executable_path, url, person, xpath_url, xpath_end, settings, tipo_
     #------------------------------------------------------
     #Direct find elements #--
     #------------------------------------------------------
+    
 
     wait_landing_xpath(xpath_url, 'click', driver, '')
 
@@ -37,6 +38,48 @@ def register(executable_path, url, person, xpath_url, xpath_end, settings, tipo_
     #        driver) #>> manual answer
 
     """Paso 1"""
+    #Datos de Usuario
+    wait_el('id', 'signup-form-1-NICKNAME', 'send_keys', driver, person.user)
+    find_el('id', 'signup-form-1-email', 'send_keys', driver, person.email)
+    find_el('id', 'signup-form-1-password', 'send_keys', driver, person.password)
+    find_el('id', 'signup-form-1-validatepassword', 'send_keys', driver, person.password) # confirm pass
+    #find_el('id', 'signup-form-1-promotionalcode', 'send_keys', driver, person.opcionalCode) #opcional
+
+
+    #Continuar
+    find_el('css', 
+    '#signup-form-1-submit',
+    'click_js',driver, '')
+
+
+    """Paso 2"""
+    #Nombres
+    wait_el('id', 'signup-form-2-FIRSTNAME', 'send_keys', driver, person.nombre)
+    wait_el('name', 'FIRSTNAME2', 'send_keys', driver, person.segundo_nombre)
+    find_el('id', 'signup-form-2-LASTNAME', 'send_keys', driver, person.apellido1)
+    find_el('id', 'signup-form-2-LASTNAME2', 'send_keys', driver, person.apellido2)
+
+    #Ubicacion
+    elemento = driver.find_element_by_css_selector('#signup-form-2 > div:nth-child(1) > div.form-zipcode-container.signup-block-ZIPRESOLVE > div.col-sm-3.col-xs-6.voffset2.validator-result-select.signup-block-STATE > div.dropdown-wrapper > div.dropdown.webkit-scrollbar > ul')
+    o=elemento.find_elements_by_tag_name("a")
+    print('la o++ --\n',o, type(o))
+    for lo in o:
+        print(lo.text)
+
+    
+    elt = driver.find_elements_by_xpath('//*[@id="signup-form-2"]/div[1]/div[7]/div[1]/div[1]/div[2]/ul/li[1]/a')
+    print('elt',elt[0].text,type(elt))
+
+     
+    print('---°°°')
+    #place_sel2('css', '#signup-form-2 > div:nth-child(1) > div.form-zipcode-container.signup-block-ZIPRESOLVE > div.col-sm-3.col-xs-6.voffset2.validator-result-select.signup-block-STATE > div.dropdown-wrapper > div.dropdown.webkit-scrollbar > ul',
+    # driver, person.departamento)
+    print('---ooo')
+    
+    print('end')
+    time.sleep(5000)#<<
+    #------------------------------------------------------------------------------------------------------   
+
     # Nombres
     wait_el('id', 'formEl_173', 'send_keys', driver, person.nombre)#--
     wait_el('id', 'formField_14', 'send_keys', driver, person.segundo_nombre)#++
@@ -70,7 +113,6 @@ def register(executable_path, url, person, xpath_url, xpath_end, settings, tipo_
     'click_js',driver, '')
 
 
-    """Paso 2"""
     #Nacionalidad
     print('wait..')
     wait_el('name', 'citizenship', 'justwait',driver, person.nacionalidad)        
@@ -92,7 +134,6 @@ def register(executable_path, url, person, xpath_url, xpath_end, settings, tipo_
     'click_js',driver, '')
  
  
-    """Paso 3"""
     #Datos de contacto
     wait_el('name', 'email', 'send_keys', driver, person.email)
     wait_el('id', 'phone-field', 'send_keys', driver, person.telefono)
@@ -142,8 +183,7 @@ def register(executable_path, url, person, xpath_url, xpath_end, settings, tipo_
 
     print('END') 
     
-    time.sleep(15)
-    
+
 
 
 if __name__ == '__main__':
@@ -152,7 +192,7 @@ if __name__ == '__main__':
     executable_path = 'driver/chromedriver.exe'
 
     # Url de acceso a la casa de apuestas -> Cambiarla para cada script
-    url = 'https://www.wplay.co/apuestas/registro' #--
+    url = 'https://www.rushbet.co/?page=signup&step=1' #--
 
 
     # Datos de prueba de la persona (fake)
@@ -161,7 +201,7 @@ if __name__ == '__main__':
                     '177 1A', '73947', 'Puerto Caicedo', 'Putumayo', 
                     '313404725', 'arataro74','grsaidy17@gmail.com', 
                     'fO824HEFf', 'colombia', '5', '7', '2013', 'BOLIVAR', 
-                    'cartagena', '5000', '80000', '200000', 'lola', 'no','','') #--
+                    'cartagena', '5000', '80000', '200000', 'lola', '') #--
 
     # Dejar esto como está
     xpath_url = None

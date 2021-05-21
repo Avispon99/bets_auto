@@ -5,7 +5,7 @@ from person_fiverr import Person
 import random
 
 # Indicar nombre de la casa de apuestas
-HOUSE_NAME = 'Wplay'
+HOUSE_NAME = '22bet'
 
 
 
@@ -35,6 +35,34 @@ def register(executable_path, url, person, xpath_url, xpath_end, settings, tipo_
 
     #wait_el('xpath', '/html/body/op-root/div/op-main-template/div/div[2]/op-register/div/tabset/ul/li[2]/a', 'click_js',
     #        driver) #>> manual answer
+    
+    time.sleep(1)
+
+    #Boton
+    driver.find_elements_by_xpath('//*[@id="loginout"]/div[2]/a')[0].click()
+    
+    #Datos personales
+    wait_el('id', 'popup_registratio_email', 'send_keys', driver, person.email)
+    find_el('id', 'popup_registratio_name', 'send_keys', driver, person.nombre)
+    find_el('id', 'popup_registratio_surname', 'send_keys', driver, person.apellido1)
+    find_el('id', 'popup_registratio_password', 'send_keys', driver, person.password)
+
+
+    #checks
+    find_el('css', '#popup_reg_container > div > div.c-registration__inner > div > div.c-registration__field.c-registration__field--policy > label.c-registration-check__text', 'click_js', driver, '')
+
+
+    #Registrarse (path)
+    wait_el('css', 
+    '#popup_reg_container > div > div.c-registration__inner > div > div.c-registration__button-wrap > div',
+    'justwait',driver, '')
+
+
+
+    print('end')
+    time.sleep(5000)
+#-------------------------------------------------------------------------------
+
 
     """Paso 1"""
     # Nombres
@@ -152,7 +180,7 @@ if __name__ == '__main__':
     executable_path = 'driver/chromedriver.exe'
 
     # Url de acceso a la casa de apuestas -> Cambiarla para cada script
-    url = 'https://www.wplay.co/apuestas/registro' #--
+    url = 'https://22bet1.net/es/?tag=d_707863m_7669c_COLOMBIA' #--
 
 
     # Datos de prueba de la persona (fake)
